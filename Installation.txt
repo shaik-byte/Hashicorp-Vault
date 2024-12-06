@@ -1,0 +1,90 @@
+----------------------Hasicorp Vault Installation Guide -----------------
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl unzip jq
+
+VAULT_VERSION=$(curl -s https://api.github.com/repos/hashicorp/vault/releases/latest | jq -r .tag_name)
+wget https://releases.hashicorp.com/vault/1.14.0/vault_1.14.0_linux_amd64.zip
+unzip vault_1.14.0_linux_amd64.zip 
+
+sudo mv vault /usr/local/bin/
+vault --version
+sudo useradd --system --home /etc/vault.d --shell /bin/false vault
+sudo mkdir -p /etc/vault.d
+sudo mkdir -p /opt/vault/data
+sudo chown -R vault:vault /etc/vault.d /opt/vault
+
+
+---------------------------------------------------
+
+sudo nano /etc/vault.d/vault.hcl
+
+storage "file" {
+    path = "/opt/vault/data"
+}
+
+listener "tcp" {
+    address     = "0.0.0.0:8200"
+    tls_disable = 1
+}
+
+api_addr = "http://54.224.248.22:8200"
+ui = true
+disable_mlock = true
+------------------------------------------------------
+
+
+
+
+------------------------------------------------------------
+
+
+sudo nano /etc/systemd/system/vault.service
+
+
+[Unit]
+Description=HashiCorp Vault
+Documentation=https://www.vaultproject.io/docs/
+After=network-online.target
+Requires=network-online.target
+
+[Service]
+User=vault
+Group=vault
+ExecStart=/usr/local/bin/vault server -config=/etc/vault.d/vault.hcl
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGTERM
+Restart=on-failure
+LimitNOFILE=65536
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+
+----------------------------------------------------------------------------
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable vault
+sudo systemctl start vault
+
+
+sudo systemctl status vault
+
+
+
+export VAULT_ADDR="http://54.224.248.22:8200"
+
+
+vault server -dev -dev-listen-address="0.0.0.0:8200"
+
+
+
+
+
+
+
+
+
