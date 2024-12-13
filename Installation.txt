@@ -78,7 +78,9 @@ sudo systemctl status vault
 export VAULT_ADDR="http://54.224.248.22:8200"
 
 
-vault server -dev -dev-listen-address="0.0.0.0:8200"
+vault server -dev -dev-listen-address="0.0.0.0:8200"                    # for dev mode
+
+vault operator init                                                     #production mode
 
 
 
