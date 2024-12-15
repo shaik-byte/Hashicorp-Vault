@@ -28,7 +28,7 @@ listener "tcp" {
     tls_disable = 1
 }
 
-api_addr = "http://54.224.248.22:8200"
+api_addr = "http://your_public_ip_address:8200"
 ui = true
 disable_mlock = true
 ------------------------------------------------------
@@ -75,7 +75,7 @@ sudo systemctl status vault
 
 
 
-export VAULT_ADDR="http://54.224.248.22:8200"
+export VAULT_ADDR="http://your_public_ip_address:8200"
 
 
 vault server -dev -dev-listen-address="0.0.0.0:8200"                    # for dev mode
