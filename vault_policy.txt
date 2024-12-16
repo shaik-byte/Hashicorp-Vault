@@ -1,0 +1,82 @@
+
+Step 1: authenticate with the root token
+  	vault login "root token"
+
+Step 2: Enable AppRole Authentication
+	vault auth enable approle
+
+Step 3: Create the Policy File
+	nano my-policy.hcl
+   	
+
+--------------------------------------------------------------------------
+# Permissions for managing secrets
+path "secret/data/*" {
+    capabilities = ["create", "read", "update", "list"]
+}
+
+# Permissions for listing secrets engines
+path "sys/mounts" {
+    capabilities = ["read", "list"]
+}
+
+# Permissions for enabling and managing secrets engines
+path "sys/mounts/*" {
+    capabilities = ["create", "read", "update", "list"]
+}
+
+# Permissions for token management
+path "auth/token/lookup-self" {
+    capabilities = ["read"]
+}
+
+path "auth/token/renew-self" {
+    capabilities = ["update"]
+}
+
+------------------------------------------------------------------------------
+
+
+Step 4: Write the Policy
+	vault policy write my-policy my-policy.hcl
+	
+
+
+Step 5: Create an AppRole
+	vault write auth/approle/role/my-role token_policies="my-policy" token_ttl="1h" token_max_ttl="4h"
+
+Step 6: Retrieve the Role ID
+	vault read auth/approle/role/my-role/role-id
+
+
+Step 7: Generate a Secret ID
+	vault write -f auth/approle/role/my-role/secret-id
+
+Step 8: Log In with Role ID and Secret ID
+
+	vault write auth/approle/login role_id="<role-id>" secret_id="<secret-id>"
+
+Step 9: Login with generated token
+	vault login "token"
+
+
+
+
+
+---------------------- READ AND WRITE THE SECRET'S----------------------------
+
+stpe 1: Verify the KV Secrets Engine
+	vault secrets list
+
+step 2: vault secrets enable -path=secret -version=2 kv
+
+step 3: write the secret
+	 vault kv put secret/my-secret username="admin" password="password123"
+
+step 4: read the secret
+	vault kv get secret/my-secret
+ * if you wanted to access the specific key:
+	vault kv get -field=username secret/my-secret
+Step 5: Delete a Key
+	vault kv delete secret/my-secret
+
