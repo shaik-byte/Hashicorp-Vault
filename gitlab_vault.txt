@@ -24,8 +24,7 @@ auto_auth {
 }
 
 vault {
-  address = "http://<VAULT_SERVER_IP>:8200"
-}
+  address = "http://34.204.44.237:8200"
 
 -----------------------------------------------
 
