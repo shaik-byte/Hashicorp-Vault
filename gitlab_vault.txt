@@ -37,3 +37,58 @@ echo "<ROLE_ID>" > /etc/vault/role_id
 echo "<SECRET_ID>" > /etc/vault/secret_id
 
 vault agent -config=/path/to/vault-agent-config.hcl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----if you wanted to pass it as cicd variable_____________
+
+exit_after_auth = false
+pid_file = "/tmp/vault-agent.pid"
+
+auto_auth {
+  method "approle" {
+    config = {
+      role_id   = "{{env `VAULT_ROLE_ID`}}"
+      secret_id = "{{env `VAULT_SECRET_ID`}}"
+    }
+  }
+
+  sink "file" {
+    config = {
+      path = "/etc/vault/agent-token"
+    }
+  }
+}
+
+vault {
+  address = "http://34.204.44.237:8200"
+}
+
+
+-- run the vault agant in behind------
+vault agent -config=/path/to/vault-agent-config.hcl &
+
+--- stop the agent---
+nohup vault agent -config=/path/to/vault-agent-config.hcl > vault-agent.log 2>&1 &
+
