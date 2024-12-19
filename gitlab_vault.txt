@@ -1,0 +1,40 @@
+Step 1: Install Vault Agent on the GitLab Runner Machine
+
+
+-------------------------------------------------------------
+nano vault-agent-config.hcl
+
+
+exit_after_auth = false
+pid_file = "/tmp/vault-agent.pid"
+
+auto_auth {
+  method "approle" {
+    config = {
+      role_id_file_path   = "/etc/vault/role_id"
+      secret_id_file_path = "/etc/vault/secret_id"
+    }
+  }
+
+  sink "file" {
+    config = {
+      path = "/etc/vault/agent-token"
+    }
+  }
+}
+
+vault {
+  address = "http://<VAULT_SERVER_IP>:8200"
+}
+
+-----------------------------------------------
+
+
+sudo mkdir -p /etc/vault
+sudo chmod 700 /etc/vault
+sudo chown $(whoami):$(whoami) /etc/vault
+
+echo "<ROLE_ID>" > /etc/vault/role_id
+echo "<SECRET_ID>" > /etc/vault/secret_id
+
+vault agent -config=/path/to/vault-agent-config.hcl
