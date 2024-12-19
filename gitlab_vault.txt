@@ -1,6 +1,6 @@
 Step 1: Install Vault Agent on the GitLab Runner Machine
 
-
+vault version|: vault_1.18.3
 -------------------------------------------------------------
 nano vault-agent-config.hcl
 
