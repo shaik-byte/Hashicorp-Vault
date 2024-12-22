@@ -38,6 +38,10 @@ sudo mkdir -p /etc/vault
 sudo chmod 700 /etc/vault
 sudo chown $(whoami):$(whoami) /etc/vault
 
+chmod o+rx /etc/vault
+chmod o+r /etc/vault/agent-token
+
+
 echo "<ROLE_ID>" > /etc/vault/role_id
 echo "<SECRET_ID>" > /etc/vault/secret_id
 
