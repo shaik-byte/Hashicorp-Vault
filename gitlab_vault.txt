@@ -57,7 +57,9 @@ vault agent -config=vault-agent-config.hcl
 -----------------------------------------------------------------------------------------------------------------------------
 
 
-----if you wanted to pass it as cicd variable_____________
+----if you wanted to pass it as cicd variable-------------------->
+
+nano vault-agent-config.hcl
 
 exit_after_auth = false
 pid_file = "/tmp/vault-agent.pid"
