@@ -41,7 +41,7 @@ sudo chown $(whoami):$(whoami) /etc/vault
 echo "<ROLE_ID>" > /etc/vault/role_id
 echo "<SECRET_ID>" > /etc/vault/secret_id
 
-vault agent -config=/path/to/vault-agent-config.hcl
+vault agent -config=vault-agent-config.hcl
 
 
 
