@@ -45,29 +45,16 @@ chmod o+r /etc/vault/agent-token
 echo "<ROLE_ID>" > /etc/vault/role_id
 echo "<SECRET_ID>" > /etc/vault/secret_id
 
+sudo chown gitlab-runner:gitlab-runner /home/ubuntu/vault-agent-config.hcl
+sudo chmod 644 /home/ubuntu/vault-agent-config.hcl
+
+sudo chown -R gitlab-runner:gitlab-runner /home/ubuntu/
+sudo chmod -R 755 /home/ubuntu/
+
 vault agent -config=vault-agent-config.hcl
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-----------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
 
 
 ----if you wanted to pass it as cicd variable_____________
@@ -91,13 +78,13 @@ auto_auth {
 }
 
 vault {
-  address = "http://34.204.44.237:8200"
+  address = "vault_ip_address:8200"
 }
 
 
 -- run the vault agant in behind------
-vault agent -config=/path/to/vault-agent-config.hcl &
+vault agent -config=vault-agent-config.hcl &
 
 --- stop the agent---
-nohup vault agent -config=/path/to/vault-agent-config.hcl > vault-agent.log 2>&1 &
+nohup vault agent -config=vault-agent-config.hcl > vault-agent.log 2>&1 &
 
