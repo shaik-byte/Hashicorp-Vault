@@ -30,7 +30,7 @@ auto_auth {
 
 vault {
   address = "http://Hashicorp_vault_Ip_address:8200"
-
+}
 -----------------------------------------------
 
 
