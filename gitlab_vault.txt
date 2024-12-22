@@ -1,6 +1,11 @@
 Step 1: Install Vault Agent on the GitLab Runner Machine
-
-vault version|: vault_1.18.3
+    sudo apt update && sudo apt upgrade -y
+    sudo apt install -y curl unzip jq
+    wget https://releases.hashicorp.com/vault/1.18.3/vault_1.18.3_linux_amd64.zip
+    unzip vault_1.18.3_linux_amd64.zip 
+    sudo mv vault /usr/local/bin/
+    vault --version
+          vault version|: vault_1.18.3
 -------------------------------------------------------------
 nano vault-agent-config.hcl
 
@@ -24,7 +29,7 @@ auto_auth {
 }
 
 vault {
-  address = "http://34.204.44.237:8200"
+  address = "http://Hashicorp_vault_Ip_address:8200"
 
 -----------------------------------------------
 
