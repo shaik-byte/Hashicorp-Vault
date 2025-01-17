@@ -1,0 +1,16 @@
+Step 1: Update Ubuntu Packages
+sudo apt update && sudo apt upgrade
+
+Step 2: Add the GitLab Runner Repository
+sudo apt install -y curl
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+
+Step 3: Install GitLab Runner on Ubuntu
+    sudo apt install gitlab-runner -y
+
+Step 4: Verify GitLab Runner Installation
+   gitlab-runner --version
+
+Step 5: Register the GitLab Runner
+   sudo gitlab-runner register
+
