@@ -1,0 +1,6 @@
+ps aux | grep gitlab-runner
+
+sudo usermod -aG docker gitlab-runner
+sudo su - gitlab-runner
+docker ps
+
