@@ -4,3 +4,10 @@ sudo usermod -aG docker gitlab-runner
 sudo su - gitlab-runner
 docker ps
 
+----------------
+github actions 
+
+# sudo groupadd docker  # Ensure the docker group exists
+# sudo usermod -aG docker $(whoami)  # Add the current user
+# sudo usermod -aG docker ubuntu  # Add the 'ubuntu' user (or any specific user)
+# sudo chmod 666 /var/run/docker.sock
