@@ -1,5 +1,5 @@
 Step 1: Update Ubuntu Packages
-sudo apt update && sudo apt upgrade
+sudo apt update
 
 Step 2: Add the GitLab Runner Repository
 sudo apt install -y curl
